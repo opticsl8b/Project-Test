@@ -1,6 +1,8 @@
 var coinList = ["bitcoin", "ethereum", "binancecoin", "cardano", "solana"];
 var priceBlock = $(".coins-price-percentage");
 
+
+
 function initialPage() {
 
     var priceApi = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Cbinancecoin%2Ccardano%2Csolana&vs_currencies=usd%2Cbtc%2Caud%2Ceur&include_24hr_change=true"
@@ -9,47 +11,76 @@ function initialPage() {
     if (dataString) {
         // retrive local storage into a object
         var data = JSON.parse(dataString);
-        //HTML colume struture
-        var rowCreate = $("<div>").attr("class", "row");
-        var rankCreate = $("<div>").attr("class", "rank");
-        var coinCreate = $("<div>").attr("class", "coin");
-        var priceCreate = $("<div>").attr("class", "price");
-        var daychangeCreate = $("<div>").attr("class", "daychange");
+        var tbodyEl = $("tbody");
+        var rankCreate = $("<td>").attr("class", "rank");
+        var coinCreate = $("<td>").attr("class", "coin");
+        var priceCreate = $("<td>").attr("class", "price");
+        var daychangeCreate = $("<td>").attr("class", "daychange");
 
-        //
+        console.log(coinList.length);
 
-        for (i = 0; i < 5; i++) {
+        for (i = 0; i < coinList.length; i++) {
 
-            priceBlock.append(rowCreate);
+            var trCreate = $("<tr>")
+            tbodyEl.append(trCreate);
 
-            var rankText = $("<span>").text(i + 1 + ".");
-            var coinText = $("<span>").text(coinList[i]);
-            var priceText = $("<span>").text(data[coinList[i]].usd);
-            var changeText = $("<span>").text(data[coinList[i]].usd_24h_change.toFixed(1));
+            tbodyEl.children(0).append(rankCreate);
+            tbodyEl.children(0).children(0).text(i + 1 + ".")
 
-            // target corresponding row
-            var lastRow = $(".row").eq(i + 1)
-
-            // creat corresponding colume
-            lastRow.append(rankCreate);
-            var lastRank = $(".rank").eq(i + 1)
-            lastRank.append(rankText);
-
-            lastRow.append(coinCreate);
-            var lastcoin = $(".coin").eq(i + 1)
-            lastcoin.append(coinText);
-
-            lastRow.append(priceCreate);
-            var lastprice = $(".price").eq(i + 1)
-            lastprice.append(priceText);
-
-            lastRow.append(daychangeCreate);
-            var lastdaychange = $(".daychange").eq(i + 1)
-            lastdaychange.append(changeText);
-
+            console.log(rankCreate);
         }
     }
 }
+
+var rowCreate = $("<div>").attr("class", "row");
+var rankCreate = $("<div>").attr("class", "rank");
+var coinCreate = $("<div>").attr("class", "coin");
+var priceCreate = $("<div>").attr("class", "price");
+var daychangeCreate = $("<div>").attr("class", "daychange");
+
+// for (i = 0; i < coinList.length; i++) {
+
+//     priceBlock.append(rowCreate);
+
+//     var rankText = $("<span>").text(i + 1 + ".");
+//     var coinText = $("<span>").text(coinList[i]);
+//     var priceText = $("<span>").text(data[coinList[i]].usd);
+//     var changeText = $("<span>").text(data[coinList[i]].usd_24h_change.toFixed(1));
+
+//     // target corresponding row
+//     var lastRow = $(".row").eq(i + 1)
+
+//     // creat corresponding colume
+//     lastRow.append(rankCreate);
+//     var lastRank = $(".rank").eq(i + 1)
+//     lastRank.append(rankText);
+
+//     lastRow.append(coinCreate);
+//     var lastcoin = $(".coin").eq(i + 1)
+//     lastcoin.append(coinText);
+
+//     lastRow.append(priceCreate);
+//     var lastprice = $(".price").eq(i + 1)
+//     lastprice.append(priceText);
+
+//     lastRow.append(daychangeCreate);
+//     var lastdaychange = $(".daychange").eq(i + 1)
+//     lastdaychange.append(changeText);
+// }
+
+
+// } else {
+//     fetch(priceApi)
+//         .then(function(response) {
+//                 if (response.ok) {
+//                     response.json().then(function(data) {
+//                             localStorage.setItem("currency", JSON.stringify(data));
+
+
+
+
+
+
 initialPage();
 
 
@@ -176,4 +207,3 @@ initialPage();
 // })
 // }
 // })
-// }
